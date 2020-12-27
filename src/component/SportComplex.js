@@ -7,6 +7,8 @@ import DatePicker from "react-datepicker";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import Button from 'react-bootstrap/Button'
 
 class Test extends Component {
   constructor(props) {
@@ -15,6 +17,73 @@ class Test extends Component {
       history: this.props.history,
       currentSelection: null,
       date: null,
+      checkedItems: new Map(),
+      data: [
+        {
+          id: 1,
+          facility: "Badminton Court",
+          data: [
+            {
+              date: "26-12-2020",
+              timeListing: [
+                {
+                  time: "9am",
+                  timeStatus: {
+                    status: "close",
+                    studentId: null,
+                  },
+                },
+                {
+                  time: "10am",
+                  timeStatus: {
+                    status: "open",
+                    studentId: null,
+                  },
+                },
+                {
+                  time: "11am",
+                  timeStatus: {
+                    status: "booked",
+                    studentId: "20113422",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 2,
+          facility: "Squash",
+          data: [
+            {
+              date: "27-12-2020",
+              timeListing: [
+                {
+                  time: "10am",
+                  timeStatus: {
+                    status: "booked",
+                    studentId: "20113422",
+                  },
+                },
+                {
+                  time: "11am",
+                  timeStatus: {
+                    status: "close",
+                    studentId: null,
+                  },
+                },
+                {
+                  time: "12am",
+                  timeStatus: {
+                    status: "open",
+                    studentId: null,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
 
@@ -22,7 +91,97 @@ class Test extends Component {
     this.setState({ currentSelection: selected });
   }
 
+  renderDropdownButton() {
+    return (
+      <DropdownButton
+        id="dropdown-item-button"
+        title={
+          this.state.currentSelection
+            ? this.state.currentSelection
+            : "Select a facility"
+        }
+      >
+        {this.state.data.map((v) => {
+          return (
+            <Dropdown.Item
+              key={v.id}
+              as="button"
+              onSelect={() => this.dropdownSelection(v.facility)}
+            >
+              {v.facility}
+            </Dropdown.Item>
+          );
+        })}
+      </DropdownButton>
+    );
+  }
+
+  handleChange = (e) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    this.setState((prevState) => ({
+      checkedItems: prevState.checkedItems.set(item, isChecked),
+    }));
+  };
+
+  renderCheckBoxName(status){
+    if(status === 'close'){
+      return "Open for booking"
+    }
+    
+    if(status === 'open'){
+      return "Close for booking"
+    }
+
+    if(status === 'booked'){
+      return "Clear booked slot"
+    }
+  }
+
+  renderTableContent() {
+    let selectedFacility = this.state.data.find(
+      (v) => v.facility === this.state.currentSelection
+    );
+    let selectedDate = selectedFacility
+      ? selectedFacility.data.find(
+          (v) => v.date === moment(this.state.date).format("DD-MM-YYYY")
+        )
+      : null;
+    let timeData = selectedDate ? selectedDate.timeListing : [];
+    return (
+      <tbody>
+        {timeData.map((v, i) => {
+          return (
+            <tr key={i}>
+              <td>{v.time}</td>
+              <td>{v.timeStatus.status}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  name={v.time}
+                  checked={
+                    this.state.checkedItems.get(v.time)
+                      ? this.state.checkedItems.get(v.time)
+                      : false
+                  }
+                  onChange={this.handleChange}
+                  style={{marginRight: 10}}
+                />
+                {this.renderCheckBoxName(v.timeStatus.status)}
+                <Button variant="link" style={{marginLeft: 10}}>More Details</Button>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    );
+  }
+
   render() {
+    [...this.state.checkedItems.keys()].map((v) => {
+      const getCheckStatus = this.state.checkedItems.get(v);
+      return console.log("Time: " + v + "\n Status: " + getCheckStatus);
+    });
     return (
       <div>
         <Header history={this.state.history} />
@@ -35,34 +194,15 @@ class Test extends Component {
             style={{ marginTop: 20, flexDirection: "row" }}
           >
             <Row>
-              <Col>
-                <DropdownButton
-                  id="dropdown-item-button"
-                  title={
-                    this.state.currentSelection
-                      ? this.state.currentSelection
-                      : "Select a facility"
-                  }
-                >
-                  <Dropdown.Item
-                    as="button"
-                    onSelect={() => this.dropdownSelection("Badminton Court")}
-                  >
-                    Badminton Court
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    as="button"
-                    onSelect={() => this.dropdownSelection("Squash")}
-                  >
-                    Squash
-                  </Dropdown.Item>
-                </DropdownButton>
-              </Col>
+              <Col>{this.renderDropdownButton()}</Col>
               {
-              
-              <Col>
-                <DatePicker selected={this.state.date ? this.state.date : new Date()} onChange={(date) => this.setState({date})} />
-              </Col>
+                <Col>
+                  <DatePicker
+                    selected={this.state.date}
+                    isClearable
+                    onChange={(date) => this.setState({ date })}
+                  />
+                </Col>
               }
             </Row>
           </div>
@@ -72,28 +212,10 @@ class Test extends Component {
                 <tr>
                   <th>Time</th>
                   <th>Status</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>Selection</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>9am</td>
-                  <td>Not open for booking</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>10am</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>11am</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
+              {this.renderTableContent()}
             </Table>
           </div>
         </div>
