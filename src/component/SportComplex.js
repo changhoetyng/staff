@@ -8,7 +8,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
+import Modal from 'react-bootstrap/Modal'
 
 class Test extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class Test extends Component {
       currentSelection: null,
       date: null,
       checkedItems: new Map(),
+      activeData: {time: "", timeStatus: {status: "", studentId: ""}},
+      modalOn: false,
       data: [
         {
           id: 1,
@@ -124,20 +127,6 @@ class Test extends Component {
     }));
   };
 
-  renderCheckBoxName(status){
-    if(status === 'close'){
-      return "Open for booking"
-    }
-    
-    if(status === 'open'){
-      return "Close for booking"
-    }
-
-    if(status === 'booked'){
-      return "Clear booked slot"
-    }
-  }
-
   renderTableContent() {
     let selectedFacility = this.state.data.find(
       (v) => v.facility === this.state.currentSelection
@@ -156,19 +145,9 @@ class Test extends Component {
               <td>{v.time}</td>
               <td>{v.timeStatus.status}</td>
               <td>
-                <input
-                  type="checkbox"
-                  name={v.time}
-                  checked={
-                    this.state.checkedItems.get(v.time)
-                      ? this.state.checkedItems.get(v.time)
-                      : false
-                  }
-                  onChange={this.handleChange}
-                  style={{marginRight: 10}}
-                />
-                {this.renderCheckBoxName(v.timeStatus.status)}
-                <Button variant="link" style={{marginLeft: 10}}>More Details</Button>
+                <Button variant="link" style={{ marginLeft: 10 }} onClick={() => this.setState({activeData: v, modalOn: true} )}>
+                  More Details
+                </Button>
               </td>
             </tr>
           );
@@ -176,15 +155,32 @@ class Test extends Component {
       </tbody>
     );
   }
+  
+  hideModal() {
+    this.setState({modalOn: false})
+  }
 
   render() {
-    [...this.state.checkedItems.keys()].map((v) => {
-      const getCheckStatus = this.state.checkedItems.get(v);
-      return console.log("Time: " + v + "\n Status: " + getCheckStatus);
-    });
     return (
       <div>
         <Header history={this.state.history} />
+        <Modal show={this.state.modalOn} onHide={() => this.hideModal()} centered>
+          <Modal.Header>
+            <Modal.Title>Details</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Date: {moment(this.state.date).format("DD-MM-YYYY")}
+            <br />
+            Time: {this.state.activeData.time}
+            <br />
+            Status: {this.state.activeData.timeStatus.status}
+          </Modal.Body>
+          <Modal.Footer>
+            {this.state.activeData.timeStatus.status === "booked" && <Button variant="danger">Cancel booking</Button>}
+            {this.state.activeData.timeStatus.status === "open" && <Button>Close booking</Button>}
+            {this.state.activeData.timeStatus.status === "close" && <Button>Open booking</Button>}
+          </Modal.Footer>
+        </Modal>
         <div className="container float-left">
           <div className="container-fluid" style={{ marginTop: 20 }}>
             <h4>Sport Complex</h4>
@@ -212,7 +208,7 @@ class Test extends Component {
                 <tr>
                   <th>Time</th>
                   <th>Status</th>
-                  <th>Selection</th>
+                  <th>Details</th>
                 </tr>
               </thead>
               {this.renderTableContent()}

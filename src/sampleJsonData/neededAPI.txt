@@ -1,16 +1,36 @@
-Staff Side:
 User account - 
-    POST Create Admin
-    DELETE Delete Admin
-    GET Logout
-    POST Login
-    PATCH Change Password
+Admin:
+POST Create Admin
+DELETE Delete Admin
+GET Logout
+POST Login
+PATCH Change Password
+POST Reset password
+	
+Manage utilities -
+Admin:
+POST - Add Utilities
+DELETE - Delete Utilities
 
-Booking -
-    POST - Add Utilities
-    DELETE - Delete Utilities
+Manage booking- 
+Admin:
+GET - List Booking
+POST - Open booking days
 
-Staff - 
-    GET - Get Booking
-    PATCH - Modify Booking
-    POST - Open booking days
+User:
+POST - Check out 
+POST - Check in
+GET - Booking List
+
+Both:
+PATCH - Modify Booking
+
+Announcement - 
+
+GET - Get announcement
+POST - post announcement
+DELETE - delete announcement
+
+
+
+
