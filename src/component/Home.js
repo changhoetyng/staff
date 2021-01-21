@@ -14,7 +14,7 @@ class Home extends Component {
       data: [
         {
            "time":"13/12/2020",
-           "data": "Dear Student and staff ham 7"
+           "data": "Dear Student and staff"
         }
      ],
     };
@@ -50,7 +50,6 @@ class Home extends Component {
           <h4>Posted Announcement</h4>
           <Row>
             {this.state.data.map((v,i) => {
-              {console.log(v.data)}
               return(
               <Col key={i}>
               <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap'}}>
