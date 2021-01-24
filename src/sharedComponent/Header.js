@@ -21,6 +21,9 @@ class Header extends Component {
             <Nav.Link onClick={() => this.state.history.replace('/sportcomplex/')}>Sport Complex</Nav.Link>
           </Nav>
         </Navbar.Collapse>
+        <Nav className="mr-auto">
+            <Nav.Link onClick={() => this.state.history.replace('/settings/')}>Settings</Nav.Link>
+        </Nav>
       </Navbar>
     );
   }

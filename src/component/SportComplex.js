@@ -10,88 +10,38 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal'
+import { api } from "../api/api";
 
-class Test extends Component {
+class SportComplex extends Component {
   constructor(props) {
     super(props);
     this.state = {
       history: this.props.history,
       currentSelection: null,
+      currentFacilityId: null,
       date: null,
       checkedItems: new Map(),
       activeData: {time: "", timeStatus: {status: "", studentId: ""}},
       modalOn: false,
-      data: [
-        {
-          id: 1,
-          facility: "Badminton Court",
-          data: [
-            {
-              date: "26-12-2020",
-              timeListing: [
-                {
-                  time: "9am",
-                  timeStatus: {
-                    status: "close",
-                    studentId: null,
-                  },
-                },
-                {
-                  time: "10am",
-                  timeStatus: {
-                    status: "open",
-                    studentId: null,
-                  },
-                },
-                {
-                  time: "11am",
-                  timeStatus: {
-                    status: "booked",
-                    studentId: "20113422",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 2,
-          facility: "Squash",
-          data: [
-            {
-              date: "27-12-2020",
-              timeListing: [
-                {
-                  time: "10am",
-                  timeStatus: {
-                    status: "booked",
-                    studentId: "20113422",
-                  },
-                },
-                {
-                  time: "11am",
-                  timeStatus: {
-                    status: "close",
-                    studentId: null,
-                  },
-                },
-                {
-                  time: "12am",
-                  timeStatus: {
-                    status: "open",
-                    studentId: null,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      data: [],
     };
   }
 
-  dropdownSelection(selected) {
-    this.setState({ currentSelection: selected });
+  async componentDidMount() {
+    this.setState({ loading: true });
+    await api
+    .get("/sportComplex/getFacility")
+    .then((res)=> {
+      this.setState({data: res.data.data})
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+    this.setState({ loading: false });
+  }
+
+  dropdownSelection(selected,id) {
+    this.setState({ currentSelection: selected, currentFacilityId: id });
   }
 
   renderDropdownButton() {
@@ -104,12 +54,12 @@ class Test extends Component {
             : "Select a facility"
         }
       >
-        {this.state.data.map((v) => {
+        {this.state.data.map((v,i) => {
           return (
             <Dropdown.Item
-              key={v.id}
+              key={i}
               as="button"
-              onSelect={() => this.dropdownSelection(v.facility)}
+              onSelect={() => this.dropdownSelection(v.facility,v.facilityId)}
             >
               {v.facility}
             </Dropdown.Item>
@@ -133,7 +83,7 @@ class Test extends Component {
     );
     let selectedDate = selectedFacility
       ? selectedFacility.data.find(
-          (v) => v.date === moment(this.state.date).format("DD-MM-YYYY")
+          (v) => v.date === moment(this.state.date).format("DD/MM/YYYY")
         )
       : null;
     let timeData = selectedDate ? selectedDate.timeListing : [];
@@ -160,6 +110,51 @@ class Test extends Component {
     this.setState({modalOn: false})
   }
 
+  async openBooking() {
+    this.setState({ loading: true });
+    await api
+    .patch("/sportComplex/openTime",{
+      facilityId: this.state.currentFacilityId,
+      date: moment(this.state.date).format("DD/MM/YYYY"),
+      time: this.state.activeData.time
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+    this.componentDidMount();
+    this.setState({ loading: false , modalOn: false});
+  }
+
+  async closeBooking() {
+    this.setState({ loading: true });
+    await api
+    .patch("/sportComplex/closeTime",{
+      facilityId: this.state.currentFacilityId,
+      date: moment(this.state.date).format("DD/MM/YYYY"),
+      time: this.state.activeData.time
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+    this.componentDidMount();
+    this.setState({ loading: false , modalOn: false});
+  }
+
+  async cancelBooking() {
+    this.setState({ loading: true });
+    await api
+    .patch("/sportComplex/cancelBooking",{
+      facilityId: this.state.currentFacilityId,
+      date: moment(this.state.date).format("DD/MM/YYYY"),
+      time: this.state.activeData.time
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+    this.componentDidMount();
+    this.setState({ loading: false , modalOn: false});
+  }
+
   render() {
     return (
       <div>
@@ -169,16 +164,22 @@ class Test extends Component {
             <Modal.Title>Details</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Date: {moment(this.state.date).format("DD-MM-YYYY")}
+            Date: {moment(this.state.date).format("DD/MM/YYYY")}
             <br />
             Time: {this.state.activeData.time}
             <br />
             Status: {this.state.activeData.timeStatus.status}
+            <br />
+            {
+              this.state.activeData.timeStatus.status === "booked" &&
+             (<div>Student ID: {this.state.activeData.timeStatus.studentId}</div>)
+            }
+            
           </Modal.Body>
           <Modal.Footer>
-            {this.state.activeData.timeStatus.status === "booked" && <Button variant="danger">Cancel booking</Button>}
-            {this.state.activeData.timeStatus.status === "open" && <Button>Close booking</Button>}
-            {this.state.activeData.timeStatus.status === "close" && <Button>Open booking</Button>}
+            {this.state.activeData.timeStatus.status === "booked" && <Button variant="danger" onClick={() => this.cancelBooking()}>Cancel booking</Button>}
+            {this.state.activeData.timeStatus.status === "open" && <Button onClick={() => this.closeBooking()}>Close booking</Button>}
+            {this.state.activeData.timeStatus.status === "close" && <Button onClick={() => this.openBooking()}>Open booking</Button>}
           </Modal.Footer>
         </Modal>
         <div className="container float-left">
@@ -220,4 +221,4 @@ class Test extends Component {
   }
 }
 
-export default Test;
+export default SportComplex;

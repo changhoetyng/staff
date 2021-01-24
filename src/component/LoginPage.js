@@ -5,6 +5,7 @@ import { api } from "../api/api";
 import "../css/Login.css";
 import { render } from "@testing-library/react";
 import Cookies from "js-cookie";
+import FullPageLoader from "../hooks/FullPageLoader"
 
 class LoginPage extends Component {
   constructor(props) {
@@ -12,8 +13,14 @@ class LoginPage extends Component {
     this.state = {
       history: this.props.history,
       username: "",
+      loading: true,
       password: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true });
+    this.setState({ loading: false });
   }
 
   validateForm() {
@@ -29,9 +36,11 @@ class LoginPage extends Component {
   }
 
   async handleSubmit(event) {
+
     event.preventDefault();
+    this.setState({ loading: true });
     await api
-      .post("/authentication/loginUser", {
+      .post("/auth/loginUser", {
         username: this.state.username,
         password: this.state.password
       })
@@ -40,12 +49,13 @@ class LoginPage extends Component {
         Cookies.set("refreshToken", res.data.refreshToken, { expires: 1 });
       })
       .catch((err) => console.log(err));
-
+    this.setState({ loading: false });
     this.state.history.replace("/");
   }
   render() {
     return (
       <div className="Login">
+        {this.state.loading && <FullPageLoader />}
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group size="lg" controlId="email">
             <Form.Label>Username</Form.Label>

@@ -1,0 +1,11 @@
+.mainDiv{
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin-top:1em;
+}
+
+.word{
+    font-size: 1.15em;
+}
