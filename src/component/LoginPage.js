@@ -15,6 +15,7 @@ class LoginPage extends Component {
       username: "",
       loading: true,
       password: "",
+      error: null
     };
   }
 
@@ -47,10 +48,16 @@ class LoginPage extends Component {
       .then((res) => {
         Cookies.set("accessToken", res.data.accessToken, { expires: 1 });
         Cookies.set("refreshToken", res.data.refreshToken, { expires: 1 });
+        this.state.history.replace("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (!err.response) {
+          this.setState({error: 'Error: Network Error'})
+      } else {
+        this.setState({error: err.response.data.error})
+      }
+    });
     this.setState({ loading: false });
-    this.state.history.replace("/");
   }
   render() {
     return (
@@ -74,10 +81,12 @@ class LoginPage extends Component {
               onChange={(e) => this.setPassword(e.target.value)}
             />
           </Form.Group>
+          {<p style={{color: 'red', alignSelf: 'center'}}>{this.state.error}</p>}
           <Button block size="lg" type="submit" disabled={!this.validateForm()}>
             Login
           </Button>
         </Form>
+        
       </div>
     );
   }

@@ -54,7 +54,7 @@ class Settings extends Component {
       <div>
         {this.state.loading && <FullPageLoader />}
         <Header history={this.state.history} />
-        <div className="container mainDiv">
+        <div className="container mainDiv float-left">
           <h2>Settings</h2>
           <div className="container overflow-hidden" style={{ marginTop: 20 }}>
             <div className="row">
