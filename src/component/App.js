@@ -5,6 +5,7 @@ import LoginPage from './LoginPage'
 import ProtectedRoute from "../auth/ProtectedRoute"
 import NotFound from "./NotFound"
 import Settings from "./Settings"
+import AddSubcategory from "./AddSubcategory"
 
 const auth = true;
 function App() {
@@ -14,6 +15,7 @@ return (
         <Route path="/login" component={LoginPage} exact/>
         <ProtectedRoute path="/" authed = {auth} component={Home} exact/>
         <ProtectedRoute path="/sportcomplex" authed = {false} component={SportComplex} />
+        <ProtectedRoute path="/addsubcategory" authed = {false} component={AddSubcategory} />
         <ProtectedRoute path="/settings" authed = {false} component={Settings} />
         <Route path="*" component={NotFound} />
       </Switch>

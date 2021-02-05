@@ -19,6 +19,7 @@ class Header extends Component {
           <Nav className="mr-auto">
             <Nav.Link onClick={() => this.state.history.replace('/')}>Home</Nav.Link>
             <Nav.Link onClick={() => this.state.history.replace('/sportcomplex/')}>Sport Complex</Nav.Link>
+            <Nav.Link onClick={() => this.state.history.replace('/addsubcategory/')}>Add Subcategory</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Nav className="mr-auto">

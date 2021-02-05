@@ -90,52 +90,60 @@ class AddSubcategory extends Component{
             <div className="container float-left">
               <h2>Add Subcategory</h2>
 
-              {/* <div style={{ marginTop: 20 }}>
-                <h4>Sport Complex</h4>
-                <div className="container float-left">
-                  <div className="row">
-                    <p className="word">Badminton Court</p>
-                  </div>
-                  <div className="row" style={{ marginBottom: 20 }}>
-                  {this.state.data.map((v,i) => {
-                    return(
-                    <div className="col" key={i}>
-                    <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap'}}>
-                      <Card.Body>
-                        <Card.Title>{v.facilityId}</Card.Title>
-                        <Card.Text>{v.subCategory}</Card.Text>
-                        <Card.Text>
-                          {v.facility}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                    </div>
-                  )
-                  })}
-                </div>
-                  <div className="row,container float-left">
+                <div style={{ marginTop: 20 }}>
+                  <h4>Sport Complex</h4>
+                  <div className="container float-left">
                     <div className="row">
-                      <p className="word">Add Subcategory:</p>
-                      <div className="col">
-                        <input 
-                          type="text" 
-                          value={this.state.subCategory}
-                          onChange={(e) => this.setState({ subCategory: e.target.value })}/>
+                      <p className="word">Badminton Court</p>
+                    </div>
+                    <div className="row" style={{ marginBottom: 20 }}>
+                    {this.state.data.map((v,i) => {
+                      return(
+                      <div className="col" key={i}>
+                        {console.log(v)}
+                      <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap'}}>
+                        <Card.Body>
+                          <Card.Title>{v.facilityId}</Card.Title>
+                          {v.subCategory && v.subCategory.map((sub,i) => {
+                            return(
+                            <div>
+                            <Card.Text>{sub.subName}</Card.Text>
+                            <Card.Text>{sub._id}</Card.Text>
+                            </div>
+                            )
+                          })}
+                          <Card.Text>
+                            {v.facility}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
                       </div>
-                      <div className="col">
-                        <Button onClick={() => this.addsubcategory()}>Add</Button>
-                      </div>
-                      <div className="col">
-                        <input 
-                          type="text" 
-                          value={this.state.facilityname}
-                          onChange={(e) => this.setState({ facilityname: e.target.value })}/>
-                          <Button onClick={() => this.addfacility()}>AddF</Button>
+                    )
+                    })}
+                  </div>
+                    <div className="row,container float-left">
+                      <div className="row">
+                        <p className="word">Add Subcategory:</p>
+                        <div className="col">
+                          <input 
+                            type="text" 
+                            value={this.state.subCategory}
+                            onChange={(e) => this.setState({ subCategory: e.target.value })}/>
+                        </div>
+                        <div className="col">
+                          <Button onClick={() => this.addsubcategory()}>Add</Button>
+                        </div>
+                        <div className="col">
+                          <input 
+                            type="text" 
+                            value={this.state.facilityname}
+                            onChange={(e) => this.setState({ facilityname: e.target.value })}/>
+                            <Button onClick={() => this.addfacility()}>AddF</Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>   
-              </div> */}
+                  </div>   
+                </div>
 
             </div>            
           </div>
