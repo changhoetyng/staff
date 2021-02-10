@@ -7,6 +7,8 @@ import FullPageLoader from "../hooks/FullPageLoader";
 import Header from "../sharedComponent/Header";
 import "../css/Setting.css";
 import {api} from "../api/api" 
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class AddSubcategory extends Component{
     constructor(props) {
@@ -74,9 +76,12 @@ class AddSubcategory extends Component{
         {subCategory && subCategory.map((sub,i) => {
           return(
             <div className="col" key={i}>             
-              <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap'}}>
+              <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap', paddingRight: 0}}>
                 <Card.Body>
-                  <Card.Text>{sub.subName}</Card.Text>
+                  <Row>
+                    <Col sm={8}><Card.Text>{sub.subName}</Card.Text></Col>
+                    <Col><Card.Link style={{cursor: 'pointer'}} onClick = {() =>{this.removesubcategory(sub._id)} } >Remove</Card.Link></Col>
+                  </Row>
                 </Card.Body>
               </Card>
             </div>
@@ -84,6 +89,22 @@ class AddSubcategory extends Component{
         })} 
         </div>    
         );       
+    }
+
+    async removesubcategory(subId){
+      this.setState({loading:true});
+
+      await api
+      .patch("/sportComplex/deletesub",{
+        facilityId: this.state.currentFacilityId,
+        subCategoryId: subId      
+      })
+      .catch((err)=> {
+        alert(err);
+        console.log(err);
+      }) 
+      this.componentDidMount();
+      this.setState({loading:false});
     }
 
     async addsubcategory(){
@@ -94,15 +115,12 @@ class AddSubcategory extends Component{
         facilityId: this.state.currentFacilityId,
         subCategory: this.state.subCategory,       
       })
-      .then((res)=> {
-        this.setState({data: [res.data, ...this.state.data]});
-      })
       .catch((err)=> {
         alert(err);
         console.log(err);
       })
       this.componentDidMount();
-      this.setState({loading:false});
+      this.setState({loading:false, subCategory: ""});
     }
 
     render() {
@@ -116,31 +134,11 @@ class AddSubcategory extends Component{
                 <div style={{ marginTop: 20 }}>
                   <h4>Sport Complex</h4>
                   <div className="container float-left">
-                    <div className="row">
+                    <div className="row" style={{marginTop: 20}}>
                       {this.renderFacilityButton()}
-                      <p className="word">Badminton Court</p>
                     </div>
-                    <div className="row" style={{ marginBottom: 20 }}>
+                    <div className="row" style={{ marginBottom: 20, marginTop: 20 }}>
                     {this.renderTableContent()}
-                    {/* {this.state.data.map((v,i) => {
-                      return(
-                      <div className="col" key={i}>
-                        {console.log(v)}
-                      <Card style={{ width: "18rem" , whiteSpace: 'pre-wrap'}}>
-                        <Card.Body>
-                          <Card.Title>{v.facility}</Card.Title>
-                          {v.subCategory && v.subCategory.map((sub,i) => {
-                            return(
-                            <div>
-                            <Card.Text>{sub.subName}</Card.Text>
-                            </div>
-                            )
-                          })}
-                        </Card.Body>
-                      </Card>
-                      </div>
-                    )
-                    })} */}
                   </div>
                     <div className="row,container float-left">
                       <div className="row">
