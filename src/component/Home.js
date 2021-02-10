@@ -49,7 +49,7 @@ class Home extends Component {
       announcement: this.state.announcement
     })
     .then((res)=> {
-      this.setState({data: [res.data, ...this.state.data],textAreaValue: "", textAreaValue2: ""})
+      this.setState({data: [res.data, ...this.state.data],title: "", announcement: ""})
     })
     .catch((err)=> {
       console.log(err)
@@ -84,14 +84,14 @@ class Home extends Component {
               <h6>Title</h6>
               <textarea
                 style={{ resize: "none", width: "100%" }}
-                value={this.state.textAreaValue}
+                value={this.state.title}
                 onChange={(event) => this.handleTitleChange(event)}
                 rows={1}
               />
               <h6>Announcement</h6>
               <textarea
                 style={{ resize: "none", width: "100%" }}
-                value={this.state.textAreaValue2}
+                value={this.state.announcement}
                 onChange={(event) => this.handleChange(event)}
                 rows={10}
               />
