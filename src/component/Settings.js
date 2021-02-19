@@ -16,7 +16,7 @@ class Settings extends Component {
       history: this.props.history,
       username: "",
       email: "",
-      isModal: true,
+      isModal: false,
       password: "",
       confirmPassword: "",
       oldPassword: "",

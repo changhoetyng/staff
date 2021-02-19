@@ -8,6 +8,7 @@ import Settings from "./Settings"
 import AddSubcategory from "./AddSubcategory"
 import ManageVenue from "./ManageVenue"
 import ManageStaff from "./ManageStaff"
+import NotAuthorized from "./NotAuthorized"
 
 const auth = true;
 function App() {
@@ -17,10 +18,11 @@ return (
         <Route path="/login" component={LoginPage} exact/>
         <ProtectedRoute path="/" authed = {auth} component={Home} exact/>
         <ProtectedRoute path="/sportcomplex" authed = {false} component={SportComplex} />
-        <ProtectedRoute path="/addsubcategory" authed = {false} component={AddSubcategory} />
+        <ProtectedRoute checkAdmin path="/addsubcategory" authed = {false} component={AddSubcategory} />
         <ProtectedRoute path="/settings" authed = {false} component={Settings} />
         <ProtectedRoute path="/managevenue" authed = {false} component={ManageVenue} />
-        <ProtectedRoute path="/managestaff" authed = {false} component={ManageStaff} />
+        <ProtectedRoute checkAdmin path="/managestaff" authed = {false} component={ManageStaff} />
+        <Route path="/notAuthorized" component={NotAuthorized} />
         <Route path="*" component={NotFound} />
       </Switch>
     </main>
