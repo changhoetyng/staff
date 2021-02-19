@@ -151,7 +151,6 @@ class AddSubcategory extends Component{
                         </div>
                         <div className="col">
                           <Button onClick={() => this.addsubcategory()}>Add</Button>
-                          
                         </div>
                       </div>
                     </div>
