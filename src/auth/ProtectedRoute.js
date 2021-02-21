@@ -7,12 +7,14 @@ function ProtectedRoute({ component: Component, authed, checkAdmin, ...rest }) {
   const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     let accessToken = Cookies.get("accessToken");
     let refreshToken = Cookies.get("refreshToken");
     if (accessToken) {
-      api
+      Promise.all([
+        api
         .get("/auth/verifyUser", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -48,19 +50,21 @@ function ProtectedRoute({ component: Component, authed, checkAdmin, ...rest }) {
           } else {
             setAuth(false);
           }
-        })
-        .then(() => setIsTokenValidated(true));
+        }),
+        
       api
       .get("/user")
       .then((res) => {
         const role = res.data.user.role
+        console.log(res.data)
         if(role === "admin"){
           setIsAdmin(true)
         } else {
           setIsAdmin(false)
         }
-      })
-      .catch((err) => console.log(err));
+      }).then(() => setFetched(true))
+      .catch((err) => console.log(err))
+      ]).then(() => setIsTokenValidated(true))
     } else {
       setIsTokenValidated(true); // in case there is no token
     }
@@ -68,6 +72,7 @@ function ProtectedRoute({ component: Component, authed, checkAdmin, ...rest }) {
 
   if (!isTokenValidated) return <div />;
   console.log(checkAdmin)
+  console.log(isAdmin)
   if(checkAdmin){
     return (
       <Route

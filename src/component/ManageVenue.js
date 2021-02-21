@@ -11,6 +11,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import moment from "moment"
 
 class ManageVenue extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class ManageVenue extends Component {
       loading: false,
       fields: {},
       isModal: false,
-      selectedSubCategoryId: null
+      selectedSubCategoryId: null,
+      error: ""
     };
   }
 
@@ -50,9 +52,9 @@ class ManageVenue extends Component {
   };
 
   renderDropdown() {
-    console.log(this.state.currentSelection)
+    console.log(this.state.currentSelection);
     return (
-        <DropdownButton
+      <DropdownButton
         id="dropdown-item-button"
         title={
           this.state.selectedSubCategory
@@ -60,12 +62,25 @@ class ManageVenue extends Component {
             : "Select"
         }
       >
-        {this.state.currentSelection && this.state.currentSelection.subCategory && this.state.currentSelection.subCategory.map((v,i) => {
-          return(
-            <Dropdown.Item key={i} as="button" onSelect={() => this.setState({selectedSubCategoryId: v._id, selectedSubCategory: v.subName})}>{v.subName}</Dropdown.Item>
-          )
-        })}
-        </DropdownButton>
+        {this.state.currentSelection &&
+          this.state.currentSelection.subCategory &&
+          this.state.currentSelection.subCategory.map((v, i) => {
+            return (
+              <Dropdown.Item
+                key={i}
+                as="button"
+                onSelect={() =>
+                  this.setState({
+                    selectedSubCategoryId: v._id,
+                    selectedSubCategory: v.subName,
+                  })
+                }
+              >
+                {v.subName}
+              </Dropdown.Item>
+            );
+          })}
+      </DropdownButton>
     );
   }
 
@@ -78,30 +93,61 @@ class ManageVenue extends Component {
               <Card.Title>{data.facility}</Card.Title>
               <DatePicker
                 selected={this.state.fields[data.facilityId]}
+                minDate={new Date()}
                 isClearable
                 onChange={(date) =>
                   this.handleDateChange(data.facilityId, date)
                 }
               />
             </Card.Body>
-            <Card.Body>
-              <Card.Link
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  this.setState({ currentSelection: data, isModal: true })
-                }
-              >
-                Open Date
-              </Card.Link>
-            </Card.Body>
+            {this.state.fields[data.facilityId] && (
+              <Card.Body>
+                <Card.Link
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    this.setState({ currentSelection: data, isModal: true })
+                  }
+                >
+                  Open Date
+                </Card.Link>
+              </Card.Body>
+            )}
           </Card>
         </Col>
       );
     });
   }
 
+  async openDate() {
+    const facilityId = this.state.currentSelection.facilityId
+    const subCategoryId = this.state.selectedSubCategoryId
+    const date = moment(this.state.fields[facilityId]).format("DD/MM/YYYY")
+    this.setState({ loading: true });
+    await api
+      .post("/sportComplex/openDate",{
+        facilityId,
+        date,
+        subCategoryId
+      })
+      .then(() => {
+        this.setState({isModal: false})
+      })
+      .catch((err) => {
+        if(err.response.data.message === "time already exists"){
+          this.setState({error: "Time already existed"})
+        }
+      })
+      this.setState({ loading: false });
+  }
+
   handleClose() {
-    this.setState({isModal: false, selectedSubCategory: null, selectedSubCategoryId: null, currentSelection: null})
+    this.setState({
+      isModal: false,
+      selectedSubCategory: null,
+      selectedSubCategoryId: null,
+      currentSelection: null,
+      error: ""
+    });
   }
 
   render() {
@@ -116,7 +162,10 @@ class ManageVenue extends Component {
           <Modal.Body className="text-center">
             <h4>Select subcategory</h4>
             <div>{this.renderDropdown()}</div>
-            <Button onClick={() => this.openDate()}>Open</Button>
+            {this.state.selectedSubCategoryId && (<Button onClick={() => this.openDate()}>Open</Button>)}
+            <p style={{ color: "red", alignSelf: "left" }}>
+                  {this.state.error}
+            </p>
           </Modal.Body>
         </Modal>
         {this.state.loading && <FullPageLoader />}
