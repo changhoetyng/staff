@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import FullPageLoader from "../hooks/FullPageLoader";
+import FullPageLoader from "../../hooks/FullPageLoader";
 import DatePicker from "react-datepicker";
-import Header from "../sharedComponent/Header";
-import "../css/Setting.css";
-import { api } from "../api/api";
+import Header from "../../sharedComponent/Header";
+import "../../css/Setting.css";
+import { api } from "../../api/api";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -32,7 +32,7 @@ class ManageVenue extends Component {
   async componentDidMount() {
     this.setState({ loading: true });
     await api
-      .get("/sportComplex/getFacility")
+      .get("/room/getRoom")
       .then((res) => {
         this.setState({ data: res.data.data });
       })
@@ -52,7 +52,6 @@ class ManageVenue extends Component {
   };
 
   renderDropdown() {
-    console.log(this.state.currentSelection);
     return (
       <DropdownButton
         id="dropdown-item-button"
@@ -84,23 +83,23 @@ class ManageVenue extends Component {
     );
   }
 
-  renderSportComplexCard() {
+  renderRoomCard() {
     return this.state.data.map((data, index) => {
       return (
         <Col key={index}>
           <Card className="text-center" style={{ width: 300 }}>
             <Card.Body>
-              <Card.Title>{data.facility}</Card.Title>
+              <Card.Title>{data.room}</Card.Title>
               <DatePicker
-                selected={this.state.fields[data.facilityId]}
+                selected={this.state.fields[data.roomId]}
                 minDate={new Date()}
                 isClearable
                 onChange={(date) =>
-                  this.handleDateChange(data.facilityId, date)
+                  this.handleDateChange(data.roomId, date)
                 }
               />
             </Card.Body>
-            {this.state.fields[data.facilityId] && (
+            {this.state.fields[data.roomId] && (
               <Card.Body>
                 <Card.Link
                   style={{ cursor: "pointer" }}
@@ -119,13 +118,13 @@ class ManageVenue extends Component {
   }
 
   async openDate() {
-    const facilityId = this.state.currentSelection.facilityId
+    const roomId = this.state.currentSelection.roomId
     const subCategoryId = this.state.selectedSubCategoryId
-    const date = moment(this.state.fields[facilityId]).format("DD/MM/YYYY")
+    const date = moment(this.state.fields[roomId]).format("DD/MM/YYYY")
     this.setState({ loading: true });
     await api
-      .post("/sportComplex/openDate",{
-        facilityId,
+      .post("/room/openDate",{
+        roomId,
         date,
         subCategoryId
       })
@@ -173,10 +172,10 @@ class ManageVenue extends Component {
         <div className="container float-left">
           <h2>Manage Venue</h2>
           <div style={{ marginTop: 20 }}>
-            <h4>Sport Complex</h4>
+            <h4>Room</h4>
           </div>
           <div style={{ marginTop: 20 }}>
-            <Row>{this.renderSportComplexCard()}</Row>
+            <Row>{this.renderRoomCard()}</Row>
           </div>
         </div>
       </div>

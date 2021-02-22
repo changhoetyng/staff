@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import FullPageLoader from "../hooks/FullPageLoader";
-import Header from "../sharedComponent/Header";
-import "../css/Setting.css";
-import {api} from "../api/api" 
+import FullPageLoader from "../../hooks/FullPageLoader";
+import Header from "../../sharedComponent/Header";
+import "../../css/Setting.css";
+import {api} from "../../api/api" 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -16,7 +16,7 @@ class AddSubcategory extends Component{
         this.state = {
           history: this.props.history,
           currentSelection: null,
-          currentFacilityId: null,
+          currentRoomId: null,
           subCategory: "",
           data:[],
           loading: false,
@@ -26,7 +26,7 @@ class AddSubcategory extends Component{
     async componentDidMount() {
       this.setState({ loading: true });
       await api
-        .get("/sportComplex/getFacility")
+        .get("/room/getRoom")
         .then((res) => {
           console.log(res.data.data)
           this.setState({ data: res.data.data});
@@ -38,17 +38,17 @@ class AddSubcategory extends Component{
     }
 
     dropdownSelection(selected, id) {
-      this.setState({ currentSelection: selected, currentFacilityId: id });
+      this.setState({ currentSelection: selected, currentRoomId: id });
     }
 
-    renderFacilityButton() {
+    renderRoomButton() {
       return (
         <DropdownButton
           id="dropdown-item-button"
           title={
             this.state.currentSelection
               ? this.state.currentSelection
-              : "Select a facility"
+              : "Select a Room"
           }
         >
           {this.state.data.map((v, i) => {
@@ -56,9 +56,9 @@ class AddSubcategory extends Component{
               <Dropdown.Item
                 key={i}
                 as="button"
-                onSelect={() => this.dropdownSelection(v.facility, v.facilityId)}
+                onSelect={() => this.dropdownSelection(v.room, v.roomId)}
               >
-                {v.facility}
+                {v.room}
               </Dropdown.Item>
             );
           })}
@@ -67,10 +67,10 @@ class AddSubcategory extends Component{
     }
 
     renderTableContent() {
-      let selectedFacility = this.state.data.find(
-        (v) => v.facilityId === this.state.currentFacilityId 
+      let selectedRoom = this.state.data.find(
+        (v) => v.roomId === this.state.currentRoomId 
       );
-      let subCategory = selectedFacility ? selectedFacility.subCategory : [];
+      let subCategory = selectedRoom ? selectedRoom.subCategory : [];
       return (
         <div className="row">
         {subCategory && subCategory.map((sub,i) => {
@@ -95,8 +95,8 @@ class AddSubcategory extends Component{
       this.setState({loading:true});
 
       await api
-      .patch("/sportComplex/deletesub",{
-        facilityId: this.state.currentFacilityId,
+      .patch("/room/deletesub",{
+        roomId: this.state.currentRoomId,
         subCategoryId: subId      
       })
       .catch((err)=> {
@@ -111,8 +111,8 @@ class AddSubcategory extends Component{
       this.setState({loading:true});
 
       await api
-      .patch("/sportComplex/addSub",{
-        facilityId: this.state.currentFacilityId,
+      .patch("/room/addSub",{
+        roomId: this.state.currentRoomId,
         subCategory: this.state.subCategory,       
       })
       .catch((err)=> {
@@ -132,10 +132,10 @@ class AddSubcategory extends Component{
               <h2>Add Subcategory</h2>
 
                 <div style={{ marginTop: 20 }}>
-                  <h4>Sport Complex</h4>
+                  <h4>Room</h4>
                   <div className="container float-left">
                     <div className="row" style={{marginTop: 20}}>
-                      {this.renderFacilityButton()}
+                      {this.renderRoomButton()}
                     </div>
                     <div className="row" style={{ marginBottom: 20, marginTop: 20 }}>
                     {this.renderTableContent()}

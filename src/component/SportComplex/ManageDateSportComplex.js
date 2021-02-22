@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../sharedComponent/Header";
+import Header from "../../sharedComponent/Header";
 import Table from "react-bootstrap/Table";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 
 class SportComplex extends Component {
   constructor(props) {

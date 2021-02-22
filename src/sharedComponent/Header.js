@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Cookies from "js-cookie";
 import {api} from "../api/api";
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import FullPageLoader from "../hooks/FullPageLoader";
 
 class Header extends Component {
@@ -46,9 +47,17 @@ class Header extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link onClick={() => this.state.history.replace('/')}>Home</Nav.Link>
-            <Nav.Link onClick={() => this.state.history.replace('/sportcomplex/')}>Sport Complex</Nav.Link>
-            {this.state.isAdmin && <Nav.Link onClick={() => this.state.history.replace('/addsubcategory/')}>Add Subcategory</Nav.Link>}
-            <Nav.Link onClick={() => this.state.history.replace('/managevenue/')}>Manage Venue</Nav.Link>
+            <NavDropdown title="Sport Complex" id="basic-nav-dropdown">
+              <Nav.Link onClick={() => this.state.history.replace('/managedatesportcomplex/')}>Manage Date</Nav.Link>
+              {this.state.isAdmin && <Nav.Link onClick={() => this.state.history.replace('/addsubcategorysportcomplex/')}>Add Subcategory</Nav.Link>}
+              <Nav.Link onClick={() => this.state.history.replace('/managevenuesportcomplex/')}>Manage Venue</Nav.Link>
+            </NavDropdown>
+            <NavDropdown title="Room" id="basic-nav-dropdown">
+              <Nav.Link onClick={() => this.state.history.replace('/managedateroom/')}>Manage Date</Nav.Link>
+              {this.state.isAdmin && <Nav.Link onClick={() => this.state.history.replace('/addsubcategoryroom/')}>Add Subcategory</Nav.Link>}
+              <Nav.Link onClick={() => this.state.history.replace('/managevenueroom/')}>Manage Venue</Nav.Link>
+            </NavDropdown>
+            
             {this.state.isAdmin && <Nav.Link onClick={() => this.state.history.replace('/managestaff/')}>Manage Staff</Nav.Link>}
           </Nav>
         
