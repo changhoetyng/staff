@@ -5,12 +5,12 @@ export const apiUrl = 'http://localhost:5000/api'
 
 export const api = axios.create({
     baseURL: apiUrl,
-    timeout: 100000,
+    timeout: 10000,
 });
 
 export const apiWithoutHeader = axios.create({
     baseURL: apiUrl,
-    timeout: 100000,
+    timeout: 10000,
 });
 
 api.interceptors.request.use( async function (config) {
