@@ -182,7 +182,7 @@ class SportComplex extends Component {
         facilityId: this.state.currentFacilityId,
         date: moment(this.state.date).format("DD/MM/YYYY"),
         time: this.state.activeData.time,
-        subCategoryId: this.state.selectedSubId
+        subCategoryId: this.state.selectedSubId,
       })
       .catch((err) => {
         console.log(err);
@@ -198,7 +198,9 @@ class SportComplex extends Component {
         facilityId: this.state.currentFacilityId,
         date: moment(this.state.date).format("DD/MM/YYYY"),
         time: this.state.activeData.time,
-        subCategoryId: this.state.selectedSubId
+        subCategoryId: this.state.selectedSubId,
+        bookingId: this.state.activeData.timeStatus.bookingId,
+        studentId: this.state.activeData.timeStatus.studentId
       })
       .catch((err) => {
         console.log(err);

@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import moment from "moment"
+import moment from "moment";
 
 class ManageVenue extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class ManageVenue extends Component {
       fields: {},
       isModal: false,
       selectedSubCategoryId: null,
-      error: ""
+      error: "",
+      room: ""
     };
   }
 
@@ -94,9 +95,7 @@ class ManageVenue extends Component {
                 selected={this.state.fields[data.roomId]}
                 minDate={new Date()}
                 isClearable
-                onChange={(date) =>
-                  this.handleDateChange(data.roomId, date)
-                }
+                onChange={(date) => this.handleDateChange(data.roomId, date)}
               />
             </Card.Body>
             {this.state.fields[data.roomId] && (
@@ -117,26 +116,39 @@ class ManageVenue extends Component {
     });
   }
 
-  async openDate() {
-    const roomId = this.state.currentSelection.roomId
-    const subCategoryId = this.state.selectedSubCategoryId
-    const date = moment(this.state.fields[roomId]).format("DD/MM/YYYY")
+  async addRoom() {
     this.setState({ loading: true });
     await api
-      .post("/room/openDate",{
-        roomId,
-        date,
-        subCategoryId
-      })
-      .then(() => {
-        this.setState({isModal: false})
+      .post("/room/addRoom", {
+        name: this.state.room,
       })
       .catch((err) => {
-        if(err.response.data.message === "time already exists"){
-          this.setState({error: "Time already existed"})
-        }
+        console.log(err);
+      });
+    this.componentDidMount();
+    this.setState({ loading: false });
+  }
+
+  async openDate() {
+    const roomId = this.state.currentSelection.roomId;
+    const subCategoryId = this.state.selectedSubCategoryId;
+    const date = moment(this.state.fields[roomId]).format("DD/MM/YYYY");
+    this.setState({ loading: true });
+    await api
+      .post("/room/openDate", {
+        roomId,
+        date,
+        subCategoryId,
       })
-      this.setState({ loading: false });
+      .then(() => {
+        this.setState({ isModal: false });
+      })
+      .catch((err) => {
+        if (err.response.data.message === "time already exists") {
+          this.setState({ error: "Time already existed" });
+        }
+      });
+    this.setState({ loading: false });
   }
 
   handleClose() {
@@ -145,7 +157,7 @@ class ManageVenue extends Component {
       selectedSubCategory: null,
       selectedSubCategoryId: null,
       currentSelection: null,
-      error: ""
+      error: "",
     });
   }
 
@@ -161,9 +173,11 @@ class ManageVenue extends Component {
           <Modal.Body className="text-center">
             <h4>Select subcategory</h4>
             <div>{this.renderDropdown()}</div>
-            {this.state.selectedSubCategoryId && (<Button onClick={() => this.openDate()}>Open</Button>)}
+            {this.state.selectedSubCategoryId && (
+              <Button onClick={() => this.openDate()}>Open</Button>
+            )}
             <p style={{ color: "red", alignSelf: "left" }}>
-                  {this.state.error}
+              {this.state.error}
             </p>
           </Modal.Body>
         </Modal>
@@ -176,6 +190,26 @@ class ManageVenue extends Component {
           </div>
           <div style={{ marginTop: 20 }}>
             <Row>{this.renderRoomCard()}</Row>
+            <div className="container float-left mt-4">
+              <div className="row">
+                <p className="word">Add Room:</p>
+                <div className="col">
+                  <input
+                    type="text"
+                    value={this.state.subCategory}
+                    onChange={(e) =>
+                      this.setState({ room: e.target.value })
+                    }
+                  />
+                  <Button
+                    style={{ marginLeft: 20 }}
+                    onClick={() => this.addRoom()}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -197,10 +197,12 @@ class ManageDateRoom extends Component {
         roomId: this.state.currentRoomId,
         date: moment(this.state.date).format("DD/MM/YYYY"),
         time: this.state.activeData.time,
-        subCategoryId: this.state.selectedSubId
+        subCategoryId: this.state.selectedSubId,
+        bookingId: this.state.activeData.timeStatus.bookingId,
+        studentId: this.state.activeData.timeStatus.studentId
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
       });
     this.componentDidMount();
     this.setState({ loading: false, modalOn: false });
@@ -247,7 +249,7 @@ class ManageDateRoom extends Component {
         </Modal>
         <div className="container float-left">
           <div className="container-fluid" style={{ marginTop: 20 }}>
-            <h4>Sport Complex</h4>
+            <h4>Room</h4>
           </div>
           <div
             className="container-fluid"
