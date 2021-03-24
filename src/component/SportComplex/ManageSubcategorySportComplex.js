@@ -87,37 +87,36 @@ class ManageSubcategorySportComplex extends Component {
               <div className="col" key={i}>
                 <Card
                   style={{
-                    width: "18rem",
+                    width: "19rem",
                     whiteSpace: "pre-wrap",
                     paddingRight: 0,
                   }}
                 >
                   <Card.Body>
-                    <Row>
-                      <Col>
-                        <Card.Text>{sub.subName}</Card.Text>
-                      </Col>
-                      <Col>
-                        <Card.Link
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            this.openQrCode(sub);
-                          }}
-                        >
-                          QR Code
-                        </Card.Link>
-                      </Col>
-                      <Col>
-                        <Card.Link
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            this.removesubcategory(sub._id);
-                          }}
-                        >
-                          Remove
-                        </Card.Link>
-                      </Col>
-                    </Row>
+                    <Card.Title>{sub.subName}</Card.Title>
+                    <Card.Text>
+                      {sub.currentUser ? (
+                        <p>Current User: {sub.currentUser}</p>
+                      ) : (
+                        <p>Current User: Not occupied</p>
+                      )}
+                    </Card.Text>
+                    <Card.Link
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.openQrCode(sub);
+                      }}
+                    >
+                      QR Code
+                    </Card.Link>
+                    <Card.Link
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.removesubcategory(sub._id);
+                      }}
+                    >
+                      Remove
+                    </Card.Link>
                   </Card.Body>
                 </Card>
               </div>
@@ -169,7 +168,7 @@ class ManageSubcategorySportComplex extends Component {
         {this.state.loading && <FullPageLoader />}
         <Header history={this.state.history} />
         <div className="container float-left non-printable">
-          <h2>Add Subcategory</h2>
+          <h2>Manage Subcategory</h2>
 
           <div style={{ marginTop: 20 }}>
             <h4>Sport Complex</h4>
