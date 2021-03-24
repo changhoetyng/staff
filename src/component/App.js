@@ -10,11 +10,11 @@ import Settings from "./Settings";
 
 // Sport Complex
 import ManageDateSportComplex from "./SportComplex/ManageDateSportComplex";
-import AddSubcategorySportComplex from "./SportComplex/AddSubcategorySportComplex";
+import ManageSubcategorySportComplex from "./SportComplex/ManageSubcategorySportComplex";
 import ManageVenueSportComplex from "./SportComplex/ManageVenueSportComplex";
 
 // Room
-import AddSubcategoryRoom from "./Room/AddSubcategoryRoom";
+import ManageSubcategoryRoom from "./Room/ManageSubcategoryRoom";
 import ManageDateRoom from "./Room/ManageDateRoom";
 import ManageVenueRoom from "./Room/ManageVenueRoom";
 
@@ -33,9 +33,9 @@ function App() {
         />
         <ProtectedRoute
           checkAdmin
-          path="/addsubcategorysportcomplex"
+          path="/managesubcategorysportcomplex"
           authed={false}
-          component={AddSubcategorySportComplex}
+          component={ManageSubcategorySportComplex}
         />
         <ProtectedRoute
           path="/managevenuesportcomplex"
@@ -49,9 +49,9 @@ function App() {
         />
         <ProtectedRoute
           checkAdmin
-          path="/addsubcategoryroom"
+          path="/managesubcategoryroom"
           authed={false}
-          component={AddSubcategoryRoom}
+          component={ManageSubcategoryRoom}
         />
         <ProtectedRoute
           path="/managevenueroom"

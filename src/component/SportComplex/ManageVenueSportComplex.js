@@ -53,7 +53,6 @@ class ManageVenue extends Component {
   };
 
   renderDropdown() {
-    console.log(this.state.currentSelection);
     return (
       <DropdownButton
         id="dropdown-item-button"
@@ -113,10 +112,36 @@ class ManageVenue extends Component {
                 </Card.Link>
               </Card.Body>
             )}
+
+            <Card.Body>
+              <Card.Link
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  this.removeFacility(data.facilityId)
+                }
+              >
+                Remove
+              </Card.Link>
+            </Card.Body>
           </Card>
         </Col>
       );
     });
+  }
+
+  async removeFacility(facilityId){
+    this.setState({ loading: true });
+    await api
+      .delete("/sportComplex/deleteFacility", {
+        data: {facilityId}
+      })
+      .then(() => {
+        this.componentDidMount()
+      })
+      .catch((err) => {
+       console.log(err.response)
+      });
+    this.setState({ loading: false });
   }
 
   async openDate() {

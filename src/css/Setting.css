@@ -5,3 +5,9 @@
 .word{
     font-size: 1.15em;
 }
+
+@media print
+{
+    .non-printable { display: none; }
+    .printable { display: block; }
+}

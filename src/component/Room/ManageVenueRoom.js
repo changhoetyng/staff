@@ -30,6 +30,22 @@ class ManageVenue extends Component {
     };
   }
 
+  async removeFacility(roomId){
+    this.setState({ loading: true });
+    await api
+      .delete("/room/deleteRoom", {
+        data: {roomId}
+      })
+      .then(() => {
+        this.componentDidMount()
+      })
+      .catch((err) => {
+       console.log(err.response)
+      });
+    this.setState({ loading: false });
+  }
+
+
   async componentDidMount() {
     this.setState({ loading: true });
     await api
@@ -110,6 +126,16 @@ class ManageVenue extends Component {
                 </Card.Link>
               </Card.Body>
             )}
+            <Card.Body>
+              <Card.Link
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  this.removeFacility(data.roomId)
+                }
+              >
+                Remove
+              </Card.Link>
+            </Card.Body>
           </Card>
         </Col>
       );
