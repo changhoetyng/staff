@@ -32,7 +32,6 @@ function App() {
           component={ManageDateSportComplex}
         />
         <ProtectedRoute
-          checkAdmin
           path="/managesubcategorysportcomplex"
           authed={false}
           component={ManageSubcategorySportComplex}
@@ -48,7 +47,6 @@ function App() {
           component={ManageDateRoom}
         />
         <ProtectedRoute
-          checkAdmin
           path="/managesubcategoryroom"
           authed={false}
           component={ManageSubcategoryRoom}

@@ -27,11 +27,21 @@ class ManageVenue extends Component {
       selectedSubCategoryId: null,
       error: "",
       facility: "",
+      isAdmin: false
     };
   }
 
   async componentDidMount() {
     this.setState({ loading: true });
+    await api
+      .get("/user")
+      .then((res) => {
+        const role = res.data.user.role
+        if(role === "admin"){
+          this.setState({isAdmin: true})
+        }
+      }).catch((err) => console.log(err))
+    
     await api
       .get("/sportComplex/getFacility")
       .then((res) => {
@@ -112,7 +122,7 @@ class ManageVenue extends Component {
                 </Card.Link>
               </Card.Body>
             )}
-
+            { this.state.isAdmin &&
             <Card.Body>
               <Card.Link
                 style={{ cursor: "pointer" }}
@@ -123,6 +133,7 @@ class ManageVenue extends Component {
                 Remove
               </Card.Link>
             </Card.Body>
+            }
           </Card>
         </Col>
       );
@@ -219,7 +230,9 @@ class ManageVenue extends Component {
           <div style={{ marginTop: 20 }}>
             <Row>{this.renderSportComplexCard()}</Row>
           </div>
-          <div className="container float-left mt-4">
+          {
+            this.state.isAdmin && 
+            <div className="container float-left mt-4">
             <div className="row">
               <p className="word">Add Facility:</p>
               <div className="col">
@@ -237,6 +250,8 @@ class ManageVenue extends Component {
               </div>
             </div>
           </div>
+          }
+          
         </div>
       </div>
     );

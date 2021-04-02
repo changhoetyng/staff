@@ -26,28 +26,37 @@ class ManageVenue extends Component {
       isModal: false,
       selectedSubCategoryId: null,
       error: "",
-      room: ""
+      room: "",
+      isAdmin: false,
     };
   }
 
-  async removeFacility(roomId){
+  async removeFacility(roomId) {
     this.setState({ loading: true });
     await api
       .delete("/room/deleteRoom", {
-        data: {roomId}
+        data: { roomId },
       })
       .then(() => {
-        this.componentDidMount()
+        this.componentDidMount();
       })
       .catch((err) => {
-       console.log(err.response)
+        console.log(err.response);
       });
     this.setState({ loading: false });
   }
 
-
   async componentDidMount() {
     this.setState({ loading: true });
+    await api
+      .get("/user")
+      .then((res) => {
+        const role = res.data.user.role;
+        if (role === "admin") {
+          this.setState({ isAdmin: true });
+        }
+      })
+      .catch((err) => console.log(err));
     await api
       .get("/room/getRoom")
       .then((res) => {
@@ -126,16 +135,16 @@ class ManageVenue extends Component {
                 </Card.Link>
               </Card.Body>
             )}
-            <Card.Body>
-              <Card.Link
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  this.removeFacility(data.roomId)
-                }
-              >
-                Remove
-              </Card.Link>
-            </Card.Body>
+            {this.state.isAdmin && (
+              <Card.Body>
+                <Card.Link
+                  style={{ cursor: "pointer" }}
+                  onClick={() => this.removeFacility(data.roomId)}
+                >
+                  Remove
+                </Card.Link>
+              </Card.Body>
+            )}
           </Card>
         </Col>
       );
@@ -216,16 +225,16 @@ class ManageVenue extends Component {
           </div>
           <div style={{ marginTop: 20 }}>
             <Row>{this.renderRoomCard()}</Row>
-            <div className="container float-left mt-4">
+            {
+              this.state.isAdmin &&
+              <div className="container float-left mt-4">
               <div className="row">
                 <p className="word">Add Room:</p>
                 <div className="col">
                   <input
                     type="text"
                     value={this.state.subCategory}
-                    onChange={(e) =>
-                      this.setState({ room: e.target.value })
-                    }
+                    onChange={(e) => this.setState({ room: e.target.value })}
                   />
                   <Button
                     style={{ marginLeft: 20 }}
@@ -236,6 +245,8 @@ class ManageVenue extends Component {
                 </div>
               </div>
             </div>
+            }
+            
           </div>
         </div>
       </div>

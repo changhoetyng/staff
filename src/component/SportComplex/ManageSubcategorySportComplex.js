@@ -24,10 +24,21 @@ class ManageSubcategorySportComplex extends Component {
       loading: false,
       qrCodeModal: false,
       selectedQR: "",
+      isAdmin: false,
     };
   }
 
   async componentDidMount() {
+    await api
+      .get("/user")
+      .then((res) => {
+        const role = res.data.user.role;
+        if (role === "admin") {
+          this.setState({ isAdmin: true });
+        }
+      })
+      .catch((err) => console.log(err));
+
     this.setState({ loading: true });
     await api
       .get("/sportComplex/getFacility")
@@ -109,14 +120,16 @@ class ManageSubcategorySportComplex extends Component {
                     >
                       QR Code
                     </Card.Link>
-                    <Card.Link
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        this.removesubcategory(sub._id);
-                      }}
-                    >
-                      Remove
-                    </Card.Link>
+                    {this.state.isAdmin && (
+                      <Card.Link
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          this.removesubcategory(sub._id);
+                        }}
+                      >
+                        Remove
+                      </Card.Link>
+                    )}
                   </Card.Body>
                 </Card>
               </div>
@@ -179,58 +192,62 @@ class ManageSubcategorySportComplex extends Component {
               <div className="row" style={{ marginBottom: 20, marginTop: 20 }}>
                 {this.renderTableContent()}
               </div>
-              <div className="row,container float-left">
-                <div className="row">
-                  <p className="word">Manage Subcategory:</p>
-                  <div className="col">
-                    <input
-                      type="text"
-                      value={this.state.subCategory}
-                      onChange={(e) =>
-                        this.setState({ subCategory: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="col">
-                    <Button onClick={() => this.addsubcategory()}>Add</Button>
+              {this.state.isAdmin && (
+                <div className="row,container float-left">
+                  <div className="row">
+                    <p className="word">Manage Subcategory:</p>
+                    <div className="col">
+                      <input
+                        type="text"
+                        value={this.state.subCategory}
+                        onChange={(e) =>
+                          this.setState({ subCategory: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="col">
+                      <Button onClick={() => this.addsubcategory()}>Add</Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
         <div class="non-printable">
-        <Modal
-          show={this.state.qrCodeModal}
-          aria-labelledby="contained-modal-title-vcenter"
-          onHide={() => this.handleClose()}
-          centered
-        >
-          <Modal.Header>
-            <Modal.Title>QR Code</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div  class="printable">
-              <h2 style={{ textAlign: "center" }}>
-                {this.state.currentSelection}
-              </h2>
-              <h4 style={{ textAlign: "center" }}>
-                {this.state.selectedQR.subName}
-              </h4>
-              <div style={{ textAlign: "center" }}>
-                <QRCode
-                  level="Q"
-                  style={{ width: 256 }}
-                  value={JSON.stringify({
-                    venueId: this.state.currentFacilityId,
-                    subCategoryId: this.state.selectedQR._id,
-                  })}
-                />
+          <Modal
+            show={this.state.qrCodeModal}
+            aria-labelledby="contained-modal-title-vcenter"
+            onHide={() => this.handleClose()}
+            centered
+          >
+            <Modal.Header>
+              <Modal.Title>QR Code</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div class="printable">
+                <h2 style={{ textAlign: "center" }}>
+                  {this.state.currentSelection}
+                </h2>
+                <h4 style={{ textAlign: "center" }}>
+                  {this.state.selectedQR.subName}
+                </h4>
+                <div style={{ textAlign: "center" }}>
+                  <QRCode
+                    level="Q"
+                    style={{ width: 256 }}
+                    value={JSON.stringify({
+                      venueId: this.state.currentFacilityId,
+                      subCategoryId: this.state.selectedQR._id,
+                    })}
+                  />
+                </div>
               </div>
-            </div>
-          </Modal.Body>
-          <Modal.Footer><Button onClick={() => window.print()}>Print</Button></Modal.Footer>
-        </Modal>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => window.print()}>Print</Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     );

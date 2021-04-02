@@ -24,11 +24,22 @@ class ManageSubcategoryRoom extends Component {
       loading: false,
       qrCodeModal: false,
       selectedQR: "",
+      isAdmin: false
     };
   }
 
   async componentDidMount() {
     this.setState({ loading: true });
+    await api
+      .get("/user")
+      .then((res) => {
+        const role = res.data.user.role;
+        if (role === "admin") {
+          this.setState({ isAdmin: true });
+        }
+      })
+      .catch((err) => console.log(err));
+
     await api
       .get("/room/getRoom")
       .then((res) => {
@@ -113,6 +124,7 @@ class ManageSubcategoryRoom extends Component {
                     >
                       QR Code
                     </Card.Link>
+                    { this.state.isAdmin &&
                     <Card.Link
                       style={{ cursor: "pointer" }}
                       onClick={() => {
@@ -121,6 +133,7 @@ class ManageSubcategoryRoom extends Component {
                     >
                       Remove
                     </Card.Link>
+                    }
                   </Card.Body>
                 </Card>
               </div>
@@ -179,6 +192,7 @@ class ManageSubcategoryRoom extends Component {
               <div className="row" style={{ marginBottom: 20, marginTop: 20 }}>
                 {this.renderTableContent()}
               </div>
+              { this.state.isAdmin &&
               <div className="row,container float-left">
                 <div className="row">
                   <p className="word">Manage Subcategory:</p>
@@ -196,6 +210,7 @@ class ManageSubcategoryRoom extends Component {
                   </div>
                 </div>
               </div>
+              }
             </div>
           </div>
         </div>
