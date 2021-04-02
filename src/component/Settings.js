@@ -142,7 +142,7 @@ class Settings extends Component {
                 {this.state.error.confirmPassword}
               </p>
             </Form>
-            <Button onClick={() => this.changePassword()}>Add Staff</Button>
+            <Button onClick={() => this.changePassword()}>Change Password</Button>
           </Modal.Body>
         </Modal>
         {this.state.loading && <FullPageLoader />}
