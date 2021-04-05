@@ -249,7 +249,7 @@ class ManageDateRoom extends Component {
         </Modal>
         <div className="container float-left">
           <div className="container-fluid" style={{ marginTop: 20 }}>
-            <h4>Room</h4>
+            <h4 id="title">Room</h4>
           </div>
           <div
             className="container-fluid"

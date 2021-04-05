@@ -18,4 +18,8 @@ describe("Setting Page", () => {
     changePassword.simulate('click')
     expect(wrapper.state('isModal')).toBe(true);
   });
+
+  test("Snapshot Setting", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 });

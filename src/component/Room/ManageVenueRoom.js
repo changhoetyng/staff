@@ -219,9 +219,9 @@ class ManageVenue extends Component {
         {this.state.loading && <FullPageLoader />}
         <Header history={this.state.history} />
         <div className="container float-left">
-          <h2>Manage Venue</h2>
+          <h2 id="manageVenueTitle">Manage Venue</h2>
           <div style={{ marginTop: 20 }}>
-            <h4>Room</h4>
+            <h4 id="title">Room</h4>
           </div>
           <div style={{ marginTop: 20 }}>
             <Row>{this.renderRoomCard()}</Row>

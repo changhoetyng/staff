@@ -11,4 +11,8 @@ describe("Login Page", () => {
     const loginButton = wrapper.find("#loginButton");
     expect(loginButton.text()).toBe("Login");
   });
+
+  test("Snapshot Login", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 });

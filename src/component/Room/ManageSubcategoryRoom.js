@@ -181,10 +181,10 @@ class ManageSubcategoryRoom extends Component {
         {this.state.loading && <FullPageLoader />}
         <Header history={this.state.history} />
         <div className="container float-left non-printable">
-          <h2>Manage Subcategory</h2>
+          <h2 id="manageSubcategoryTitle">Manage Subcategory</h2>
 
           <div style={{ marginTop: 20 }}>
-            <h4>Room</h4>
+            <h4 id="title">Room</h4>
             <div className="container float-left">
               <div className="row" style={{ marginTop: 20 }}>
                 {this.renderRoomButton()}

@@ -241,16 +241,16 @@ class SportComplex extends Component {
               </Button>
             )}
             {this.state.activeData.timeStatus.status === "open" && (
-              <Button onClick={() => this.closeBooking()}>Close booking</Button>
+              <Button id="closeBooking" onClick={() => this.closeBooking()}>Close booking</Button>
             )}
             {this.state.activeData.timeStatus.status === "close" && (
-              <Button onClick={() => this.openBooking()}>Open booking</Button>
+              <Button id="openBooking" onClick={() => this.openBooking()}>Open booking</Button>
             )}
           </Modal.Footer>
         </Modal>
         <div className="container float-left">
           <div className="container-fluid" style={{ marginTop: 20 }}>
-            <h4>Sport Complex</h4>
+            <h4 id="title">Sport Complex</h4>
           </div>
           <div
             className="container-fluid"

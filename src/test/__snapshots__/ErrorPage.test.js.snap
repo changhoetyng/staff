@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Error Page Snapshot Not Authorized page 1`] = `ShallowWrapper {}`;
+
+exports[`Render Error Page Snapshot Not Found page 1`] = `ShallowWrapper {}`;

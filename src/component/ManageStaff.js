@@ -151,7 +151,7 @@ class ManageStaff extends Component {
           centered
         >
           <Modal.Body className="text-center">
-            <h4>Add Staff</h4>
+            <h4 id="title">Add Staff</h4>
             <Form>
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -198,7 +198,7 @@ class ManageStaff extends Component {
           <h2 style={{ marginTop: 20 }}>Manage Staff</h2>
           <div style={{ marginTop: 20 }}>{this.renderTableContent()}</div>
           <div style={{ marginTop: 20 }}>
-            <Button onClick={() => this.setState({ isModal: true })}>
+            <Button id="addStaffButton" onClick={() => this.setState({ isModal: true })}>
               Add Staff
             </Button>
           </div>

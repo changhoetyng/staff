@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageDateRoom Snapshot ManageDateRoom 1`] = `ShallowWrapper {}`;
+
+exports[`ManageSubcategoryRoom Snapshot ManageSubcategoryRoom 1`] = `ShallowWrapper {}`;
+
+exports[`ManageVenueRoom Snapshot ManageVenueRoom 1`] = `ShallowWrapper {}`;
