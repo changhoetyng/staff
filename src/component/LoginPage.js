@@ -63,7 +63,7 @@ class LoginPage extends Component {
     return (
       <div className="Login">
         {this.state.loading && <FullPageLoader />}
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
+        <Form id="#loginForm" onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group size="lg" controlId="email">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -82,7 +82,7 @@ class LoginPage extends Component {
             />
           </Form.Group>
           {<p style={{color: 'red', alignSelf: 'center'}}>{this.state.error}</p>}
-          <Button block size="lg" type="submit" disabled={!this.validateForm()}>
+          <Button block size="lg" id="loginButton" type="submit" disabled={!this.validateForm()}>
             Login
           </Button>
         </Form>

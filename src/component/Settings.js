@@ -168,6 +168,7 @@ class Settings extends Component {
               </div>
               <div className="col">
                 <input
+                  id="usernameInput"
                   type="text"
                   value={this.state.username}
                   onChange={(e) => this.setState({ username: e.target.value })}
@@ -176,10 +177,10 @@ class Settings extends Component {
             </div>
             <div className="row mt-5">
               <div className="col">
-                <Button onClick={() => this.save()}> Save </Button>
+                <Button id="savePassword" onClick={() => this.save()}> Save </Button>
               </div>
               <div className="col">
-                <Button onClick={() => this.setState({isModal: true})}>
+                <Button id="changePassword" onClick={() => this.setState({isModal: true})}>
                   Change Password
                 </Button>
               </div>
