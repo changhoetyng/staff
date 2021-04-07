@@ -1,7 +1,384 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ManageDateSportComplex Snapshot ManageDateSportComplex 1`] = `ShallowWrapper {}`;
+exports[`ManageDateSportComplex Snapshot ManageDateSportComplex 1`] = `
+<div>
+  <Header />
+  <Modal
+    animation={true}
+    autoFocus={true}
+    backdrop={true}
+    centered={true}
+    dialogAs={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
+    enforceFocus={true}
+    keyboard={true}
+    onHide={[Function]}
+    restoreFocus={true}
+    show={false}
+  >
+    <ModalHeader
+      closeButton={false}
+      closeLabel="Close"
+    >
+      <ModalTitle>
+        Details
+      </ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      Date: 
+      Invalid date
+      <br />
+      Time: 
+      <br />
+      Status: 
+      <br />
+    </ModalBody>
+    <ModalFooter />
+  </Modal>
+  <div
+    className="container float-left"
+  >
+    <div
+      className="container-fluid"
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <h4
+        id="title"
+      >
+        Sport Complex
+      </h4>
+    </div>
+    <div
+      className="container-fluid"
+      style={
+        Object {
+          "flexDirection": "row",
+          "marginTop": 20,
+        }
+      }
+    >
+      <Row
+        noGutters={false}
+      >
+        <Col>
+          <DropdownButton
+            id="dropdown-item-button"
+            title="Select a facility"
+          />
+        </Col>
+        <Col>
+          <DropdownButton
+            id="dropdown-item-button"
+            title="Please Select a Facility"
+          />
+        </Col>
+        <Col>
+          <a
+            allowSameDay={false}
+            customTimeInput={null}
+            dateFormat="MM/dd/yyyy"
+            dateFormatCalendar="LLLL yyyy"
+            disabled={false}
+            disabledKeyboardNavigation={false}
+            dropdownMode="scroll"
+            enableTabLoop={true}
+            excludeScrollbar={true}
+            focusSelectedMonth={false}
+            isClearable={true}
+            monthsShown={1}
+            nextMonthButtonLabel="Next Month"
+            nextYearButtonLabel="Next Year"
+            onBlur={[Function]}
+            onCalendarClose={[Function]}
+            onCalendarOpen={[Function]}
+            onChange={[Function]}
+            onClickOutside={[Function]}
+            onFocus={[Function]}
+            onInputClick={[Function]}
+            onInputError={[Function]}
+            onKeyDown={[Function]}
+            onMonthChange={[Function]}
+            onSelect={[Function]}
+            onYearChange={[Function]}
+            preventOpenOnFocus={false}
+            previousMonthButtonLabel="Previous Month"
+            previousYearButtonLabel="Previous Year"
+            readOnly={false}
+            renderDayContents={[Function]}
+            selected={null}
+            shouldCloseOnSelect={true}
+            showFullMonthYearPicker={false}
+            showMonthYearPicker={false}
+            showPopperArrow={true}
+            showPreviousMonths={false}
+            showQuarterYearPicker={false}
+            showTimeInput={false}
+            showTimeSelect={false}
+            showTwoColumnMonthYearPicker={false}
+            showYearPicker={false}
+            strictParsing={false}
+            timeCaption="Time"
+            timeInputLabel="Time"
+            timeIntervals={30}
+            withPortal={false}
+            yearItemNumber={12}
+          />
+        </Col>
+      </Row>
+    </div>
+    <div
+      className="container-fluid"
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <ForwardRef
+        bordered={true}
+        hover={true}
+        striped={true}
+      >
+        <thead>
+          <tr>
+            <th>
+              Time
+            </th>
+            <th>
+              Status
+            </th>
+            <th>
+              Details
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </ForwardRef>
+    </div>
+  </div>
+</div>
+`;
 
-exports[`ManageSubcategorySportComplex Snapshot ManageSubcategorySportComplex 1`] = `ShallowWrapper {}`;
+exports[`ManageSubcategorySportComplex Snapshot ManageSubcategorySportComplex 1`] = `
+<div>
+  <Header />
+  <div
+    className="container float-left non-printable"
+  >
+    <h2
+      id="manageSubcategoryTitle"
+    >
+      Manage Subcategory
+    </h2>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <h4
+        id="title"
+      >
+        Sport Complex
+      </h4>
+      <div
+        className="container float-left"
+      >
+        <div
+          className="row"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <DropdownButton
+            id="dropdown-item-button"
+            title="Select a facility"
+          />
+        </div>
+        <div
+          className="row"
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div
+            className="row"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="non-printable"
+  >
+    <Modal
+      animation={true}
+      aria-labelledby="contained-modal-title-vcenter"
+      autoFocus={true}
+      backdrop={true}
+      centered={true}
+      dialogAs={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        }
+      }
+      enforceFocus={true}
+      keyboard={true}
+      onHide={[Function]}
+      restoreFocus={true}
+      show={false}
+    >
+      <ModalHeader
+        closeButton={false}
+        closeLabel="Close"
+      >
+        <ModalTitle>
+          QR Code
+        </ModalTitle>
+      </ModalHeader>
+      <ModalBody>
+        <div
+          class="printable"
+        >
+          <h2
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          />
+          <h4
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <QRCode
+              level="Q"
+              style={
+                Object {
+                  "width": 256,
+                }
+              }
+              value="{\\"venueId\\":null}"
+            />
+          </div>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          active={false}
+          disabled={false}
+          onClick={[Function]}
+          variant="primary"
+        >
+          Print
+        </Button>
+      </ModalFooter>
+    </Modal>
+  </div>
+</div>
+`;
 
-exports[`ManageVenueSportComplex Snapshot ManageVenueSportComplex 1`] = `ShallowWrapper {}`;
+exports[`ManageVenueSportComplex Snapshot ManageVenueSportComplex 1`] = `
+<div>
+  <Modal
+    animation={true}
+    aria-labelledby="contained-modal-title-vcenter"
+    autoFocus={true}
+    backdrop={true}
+    centered={true}
+    dialogAs={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
+    enforceFocus={true}
+    keyboard={true}
+    onHide={[Function]}
+    restoreFocus={true}
+    show={false}
+  >
+    <ModalBody
+      className="text-center"
+    >
+      <h4>
+        Select subcategory
+      </h4>
+      <div>
+        <DropdownButton
+          id="dropdown-item-button"
+          title="Select"
+        />
+      </div>
+      <p
+        style={
+          Object {
+            "alignSelf": "left",
+            "color": "red",
+          }
+        }
+      />
+    </ModalBody>
+  </Modal>
+  <FullPageLoader />
+  <Header />
+  <div
+    className="container float-left"
+  >
+    <h2
+      id="manageVenueTitle"
+    >
+      Manage Venue
+    </h2>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <h4
+        id="title"
+      >
+        Sport Complex
+      </h4>
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <Row
+        noGutters={false}
+      />
+    </div>
+  </div>
+</div>
+`;

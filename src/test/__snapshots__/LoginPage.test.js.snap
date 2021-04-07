@@ -1,3 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login Page Snapshot Login 1`] = `ShallowWrapper {}`;
+exports[`Login Page Snapshot Login 1`] = `
+<div
+  className="Login"
+>
+  <Form
+    id="#loginForm"
+    inline={false}
+    onSubmit={[Function]}
+  >
+    <FormGroup
+      controlId="email"
+      size="lg"
+    >
+      <FormLabel
+        column={false}
+        srOnly={false}
+      >
+        Username
+      </FormLabel>
+      <FormControl
+        autoFocus={true}
+        onChange={[Function]}
+        type="username"
+        value=""
+      />
+    </FormGroup>
+    <FormGroup
+      controlId="password"
+      size="lg"
+    >
+      <FormLabel
+        column={false}
+        srOnly={false}
+      >
+        Password
+      </FormLabel>
+      <FormControl
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </FormGroup>
+    <p
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "red",
+        }
+      }
+    />
+    <Button
+      active={false}
+      block={true}
+      disabled={true}
+      id="loginButton"
+      size="lg"
+      type="submit"
+      variant="primary"
+    >
+      Login
+    </Button>
+  </Form>
+</div>
+`;

@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Error Page Snapshot Not Authorized page 1`] = `ShallowWrapper {}`;
+exports[`Render Error Page Snapshot Not Authorized page 1`] = `
+<h1>
+  400 You are not authorized
+</h1>
+`;
 
-exports[`Render Error Page Snapshot Not Found page 1`] = `ShallowWrapper {}`;
+exports[`Render Error Page Snapshot Not Found page 1`] = `
+<h1>
+  404 Page Not Found
+</h1>
+`;

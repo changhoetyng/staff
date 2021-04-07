@@ -1,3 +1,191 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Setting Page Snapshot Setting 1`] = `ShallowWrapper {}`;
+exports[`Setting Page Snapshot Setting 1`] = `
+<div>
+  <Modal
+    animation={true}
+    aria-labelledby="contained-modal-title-vcenter"
+    autoFocus={true}
+    backdrop={true}
+    centered={true}
+    dialogAs={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
+    enforceFocus={true}
+    keyboard={true}
+    onHide={[Function]}
+    restoreFocus={true}
+    show={true}
+  >
+    <ModalBody
+      className="text-center"
+    >
+      <h4>
+        Change Password
+      </h4>
+      <Form
+        inline={false}
+      >
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Old Password
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          New Password
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Confirm Password
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+      </Form>
+      <Button
+        active={false}
+        disabled={false}
+        onClick={[Function]}
+        variant="primary"
+      >
+        Change Password
+      </Button>
+    </ModalBody>
+  </Modal>
+  <FullPageLoader />
+  <Header />
+  <div
+    className="container mainDiv float-left"
+  >
+    <h2>
+       Settings 
+    </h2>
+    <div
+      className="container overflow-hidden"
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <p
+            className="word"
+          >
+             Email: 
+          </p>
+        </div>
+        <div
+          className="col"
+        >
+          <input
+            onChange={[Function]}
+            type="email"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <p
+            className="word"
+          >
+             Username: 
+          </p>
+        </div>
+        <div
+          className="col"
+        >
+          <input
+            id="usernameInput"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="row mt-5"
+      >
+        <div
+          className="col"
+        >
+          <Button
+            active={false}
+            disabled={false}
+            id="savePassword"
+            onClick={[Function]}
+            variant="primary"
+          >
+             Save 
+          </Button>
+        </div>
+        <div
+          className="col"
+        >
+          <Button
+            active={false}
+            disabled={false}
+            id="changePassword"
+            onClick={[Function]}
+            variant="primary"
+          >
+            Change Password
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

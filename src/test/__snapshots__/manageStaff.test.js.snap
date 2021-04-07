@@ -1,3 +1,162 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Manage Staff Page Snapshot Manage Staff 1`] = `ShallowWrapper {}`;
+exports[`Manage Staff Page Snapshot Manage Staff 1`] = `
+<div>
+  <Modal
+    animation={true}
+    aria-labelledby="contained-modal-title-vcenter"
+    autoFocus={true}
+    backdrop={true}
+    centered={true}
+    dialogAs={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
+    enforceFocus={true}
+    keyboard={true}
+    onHide={[Function]}
+    restoreFocus={true}
+    show={true}
+  >
+    <ModalBody
+      className="text-center"
+    >
+      <h4
+        id="title"
+      >
+        Add Staff
+      </h4>
+      <Form
+        inline={false}
+      >
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Email address
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          placeholder="name@example.com"
+          type="email"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Username
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Password
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+        <FormLabel
+          column={false}
+          srOnly={false}
+        >
+          Confirm Password
+        </FormLabel>
+        <FormControl
+          onChange={[Function]}
+          type="input"
+        />
+        <p
+          style={
+            Object {
+              "alignSelf": "left",
+              "color": "red",
+            }
+          }
+        />
+      </Form>
+      <Button
+        active={false}
+        disabled={false}
+        onClick={[Function]}
+        variant="primary"
+      >
+        Add Staff
+      </Button>
+    </ModalBody>
+  </Modal>
+  <FullPageLoader />
+  <Header />
+  <div
+    className="container float-left"
+  >
+    <h2
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Manage Staff
+    </h2>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <div
+        className="row"
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <Button
+        active={false}
+        disabled={false}
+        id="addStaffButton"
+        onClick={[Function]}
+        variant="primary"
+      >
+        Add Staff
+      </Button>
+    </div>
+  </div>
+</div>
+`;
