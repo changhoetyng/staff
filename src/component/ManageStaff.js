@@ -164,7 +164,7 @@ class ManageStaff extends Component {
               </p>
               <Form.Label>Username</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
               <p style={{ color: "red", alignSelf: "left" }}>
@@ -172,7 +172,7 @@ class ManageStaff extends Component {
               </p>
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) => this.setState({ password: e.target.value })}
               />
               <p style={{ color: "red", alignSelf: "left" }}>
@@ -180,7 +180,7 @@ class ManageStaff extends Component {
               </p>
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) =>
                   this.setState({ confirmPassword: e.target.value })
                 }

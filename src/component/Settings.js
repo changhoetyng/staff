@@ -20,7 +20,8 @@ class Settings extends Component {
       password: "",
       confirmPassword: "",
       oldPassword: "",
-      error: {}
+      error: {},
+      emailError: ""
     };
   }
 
@@ -39,17 +40,21 @@ class Settings extends Component {
         });
       })
       .catch((err) => console.log(err));
+      console.log(this.state.username)
     this.setState({ loading: false });
   }
 
   async save() {
     this.setState({ loading: true });
-    await api
+    if(this.state.email){
+      await api
       .patch("/user/changeEmail", {
         email: this.state.email,
       })
-      .catch((err) => console.log(err));
-    await api
+      .catch((err) => this.setState({emailError: err.response.data}));
+    }
+    if(this.state.username){
+      await api
       .patch("/user/changeUsername", {
         username: this.state.username,
       })
@@ -58,7 +63,7 @@ class Settings extends Component {
         Cookies.set("refreshToken", res.data.refreshToken, { expires: 1 });
       })
       .catch((err) => console.log(err));
-
+    }
     this.componentDidMount();
     this.setState({ loading: false });
   }
@@ -115,7 +120,7 @@ class Settings extends Component {
             <Form>
             <Form.Label>Old Password</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) =>
                   this.setState({ oldPassword: e.target.value })
                 }
@@ -125,7 +130,7 @@ class Settings extends Component {
               </p>
               <Form.Label>New Password</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) => this.setState({ password: e.target.value })}
               />
               <p style={{ color: "red", alignSelf: "left" }}>
@@ -133,7 +138,7 @@ class Settings extends Component {
               </p>
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
-                type="input"
+                type="password"
                 onChange={(e) =>
                   this.setState({ confirmPassword: e.target.value })
                 }
@@ -175,6 +180,9 @@ class Settings extends Component {
                 />
               </div>
             </div>
+            <p style={{ color: "red", alignSelf: "left" }}>
+                {this.state.emailError.message}
+              </p>
             <div className="row mt-5">
               <div className="col">
                 <Button id="savePassword" onClick={() => this.save()}> Save </Button>

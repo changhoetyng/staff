@@ -209,7 +209,7 @@ class ManageVenue extends Component {
             <h4>Select subcategory</h4>
             <div>{this.renderDropdown()}</div>
             {this.state.selectedSubCategoryId && (
-              <Button onClick={() => this.openDate()}>Open</Button>
+              <Button style={{marginTop: 10}} onClick={() => this.openDate()}>Open</Button>
             )}
             <p style={{ color: "red", alignSelf: "left" }}>
               {this.state.error}
