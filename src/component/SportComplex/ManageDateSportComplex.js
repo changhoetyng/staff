@@ -233,6 +233,16 @@ class SportComplex extends Component {
                 Student ID: {this.state.activeData.timeStatus.studentId}
               </div>
             )}
+            {this.state.activeData.timeStatus.status === "checked in" && (
+              <div>
+                Student ID: {this.state.activeData.timeStatus.studentId}
+              </div>
+            )}
+            {this.state.activeData.timeStatus.status === "checked out" && (
+              <div>
+                Student ID: {this.state.activeData.timeStatus.studentId}
+              </div>
+            )}
           </Modal.Body>
           <Modal.Footer>
             {this.state.activeData.timeStatus.status === "booked" && (

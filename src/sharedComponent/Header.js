@@ -49,13 +49,13 @@ class Header extends Component {
             <Nav.Link onClick={() => this.state.history.replace('/')}>Home</Nav.Link>
             <NavDropdown title="Sport Complex" id="basic-nav-dropdown">
               <Nav.Link onClick={() => this.state.history.replace('/managedatesportcomplex/')}>Manage Date</Nav.Link>
-              <Nav.Link onClick={() => this.state.history.replace('/managesubcategorysportcomplex/')}>Manage Subcategory</Nav.Link>
               <Nav.Link onClick={() => this.state.history.replace('/managevenuesportcomplex/')}>Manage Venue</Nav.Link>
+              <Nav.Link onClick={() => this.state.history.replace('/managesubcategorysportcomplex/')}>Manage Subcategory</Nav.Link>
             </NavDropdown>
             <NavDropdown title="Room" id="basic-nav-dropdown">
               <Nav.Link onClick={() => this.state.history.replace('/managedateroom/')}>Manage Date</Nav.Link>
-              <Nav.Link onClick={() => this.state.history.replace('/managesubcategoryroom/')}>Manage Subcategory</Nav.Link>
               <Nav.Link onClick={() => this.state.history.replace('/managevenueroom/')}>Manage Venue</Nav.Link>
+              <Nav.Link onClick={() => this.state.history.replace('/managesubcategoryroom/')}>Manage Subcategory</Nav.Link>
             </NavDropdown>
             
             {this.state.isAdmin && <Nav.Link onClick={() => this.state.history.replace('/managestaff/')}>Manage Staff</Nav.Link>}
