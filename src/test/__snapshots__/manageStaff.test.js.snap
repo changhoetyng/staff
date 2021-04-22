@@ -58,7 +58,7 @@ exports[`Manage Staff Page Snapshot Manage Staff 1`] = `
         </FormLabel>
         <FormControl
           onChange={[Function]}
-          type="input"
+          type="password"
         />
         <p
           style={
@@ -76,7 +76,7 @@ exports[`Manage Staff Page Snapshot Manage Staff 1`] = `
         </FormLabel>
         <FormControl
           onChange={[Function]}
-          type="input"
+          type="password"
         />
         <p
           style={
@@ -94,7 +94,7 @@ exports[`Manage Staff Page Snapshot Manage Staff 1`] = `
         </FormLabel>
         <FormControl
           onChange={[Function]}
-          type="input"
+          type="password"
         />
         <p
           style={
