@@ -164,7 +164,7 @@ class ManageStaff extends Component {
               </p>
               <Form.Label>Username</Form.Label>
               <Form.Control
-                type="password"
+                type="text"
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
               <p style={{ color: "red", alignSelf: "left" }}>

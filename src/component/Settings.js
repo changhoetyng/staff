@@ -109,6 +109,7 @@ class Settings extends Component {
   render() {
     return (
       <div>
+        {this.state.loading && <FullPageLoader />}
         <Modal
           show={this.state.isModal}
           aria-labelledby="contained-modal-title-vcenter"
@@ -150,7 +151,7 @@ class Settings extends Component {
             <Button onClick={() => this.changePassword()}>Change Password</Button>
           </Modal.Body>
         </Modal>
-        {this.state.loading && <FullPageLoader />}
+        
         <Header history={this.state.history} />
         <div className="container mainDiv float-left">
           <h2> Settings </h2>

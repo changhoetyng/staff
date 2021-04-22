@@ -197,7 +197,8 @@ class ManageVenue extends Component {
         console.log(err);
       });
     this.componentDidMount();
-    this.setState({ loading: false });
+    // this.setState({ loading: false });
+    setTimeout(() => {this.setState({ loading: false }); }, 3000);
   }
 
   render() {
